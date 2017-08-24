@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // Enter URL address where your json file resides
                 // Even you can make call to php file which returns json data
-                url = new URL("http://192.168.18.254:3000/get_messages");
+                url = new URL("http://www.smsapi.ninja/get_messages");
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
@@ -149,15 +149,15 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                        //Log.i("Send SMS", "");
-                        //SmsManager sms = SmsManager.getDefault();
+                        Log.i("Send SMS", "");
+                        SmsManager sms = SmsManager.getDefault();
 
                         //PendingIntent sentPI;
                         //String SENT = "SMS_SENT";
 
                         //sentPI = PendingIntent.getBroadcast(activity, 0, new Intent(SENT), 0);
 
-                        //sms.sendTextMessage(phoneNumber, null, message, null, null);
+                        sms.sendTextMessage(phoneNumber, null, message, null, null);
 
                         //Log.e("Sending Message ::: ", message);
                     } catch (JSONException e) {
