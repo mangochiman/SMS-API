@@ -25,16 +25,22 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.telephony.SmsManager;
 import android.os.Handler;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements android.view.View.OnClickListener {
     public static final int CONNECTION_TIMEOUT = 10000;
     public static final int READ_TIMEOUT = 15000;
 
+    Button verify_code;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        verify_code = (Button) findViewById(R.id.verifyCode);
+        verify_code.setOnClickListener(this);
         //Intent serviceIntent = new Intent(this, SMSServiceStartOnBoot.class);
         //serviceIntent.startService(serviceIntent);
         //new AsyncFetch().execute();
@@ -51,6 +57,18 @@ public class MainActivity extends AppCompatActivity {
                 handler.postDelayed(this, 1000); //now is every 2 minutes
             }
         }, 1000); //Every 120000 ms (2 minutes)
+    }
+
+
+    public void onClick(View view) {
+        if (view== findViewById(R.id.verifyCode)){
+
+            //Intent intent = new Intent(this,StudentDetail.class);
+            //intent.putExtra("student_Id",0);
+            //startActivity(intent);
+            Toast.makeText(this, "No student!",Toast.LENGTH_SHORT).show();
+
+        }
     }
 
     private class AsyncFetch extends AsyncTask<String, String, String> {
