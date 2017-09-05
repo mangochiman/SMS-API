@@ -4,8 +4,7 @@
 
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <receiver
         android:name=".BroadcastReceiverOnBootComplete"
@@ -47,6 +46,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".UserDetails"></activity>
     </application>
 
 </manifest>

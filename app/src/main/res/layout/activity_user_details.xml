@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:columnCount="2" >
+
+    <TextView
+        android:id="@+id/nameText"
+        android:layout_gravity="left"
+        android:text="Username: "
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <TextView
+        android:id="@+id/nameValue"
+        android:layout_gravity="left"
+        android:text=" Mangochiman"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/fNameText"
+        android:layout_gravity="left"
+        android:text="First Name: "
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    <TextView
+        android:id="@+id/firstName"
+        android:layout_gravity="left"
+        android:text=" Ernest"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/lNameText"
+        android:layout_gravity="left"
+        android:text="Last Name: "
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    <TextView
+        android:id="@+id/lastName"
+        android:layout_gravity="left"
+        android:text=" Matola"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/pNumberText"
+        android:layout_gravity="left"
+        android:text="Phone Number: "
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    <TextView
+        android:id="@+id/phoneNumber"
+        android:layout_gravity="left"
+        android:text=" 0999607901"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/emailText"
+        android:layout_gravity="left"
+        android:text="Email: "
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_gravity="left"
+        android:text=" mangochiman@gmail.com"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/dateCreatedText"
+        android:layout_gravity="left"
+        android:text="Date Created: "
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    <TextView
+        android:id="@+id/dateCreated"
+        android:layout_gravity="left"
+        android:text=" 05/September/2017"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/apiStatusText"
+        android:layout_gravity="left"
+        android:text="API Key status: "
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    <TextView
+        android:id="@+id/apiStatus"
+        android:layout_gravity="left"
+        android:text=" Active"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/expiryDateText"
+        android:layout_gravity="left"
+        android:text="API Key Expiry: "
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    <TextView
+        android:id="@+id/expiryDate"
+        android:layout_gravity="left"
+        android:text=" 01/Dec/2017"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</GridLayout>
