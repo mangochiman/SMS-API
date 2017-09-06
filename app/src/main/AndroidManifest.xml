@@ -46,7 +46,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UserDetails"></activity>
+        <activity android:name=".UserDetails"
+            android:label="Account Details"></activity>
     </application>
 
 </manifest>
