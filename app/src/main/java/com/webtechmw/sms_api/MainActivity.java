@@ -70,10 +70,6 @@ public class MainActivity extends AppCompatActivity implements android.view.View
             String txtToken = txtAPIToken.getText().toString();
             Log.e("API SIZE", txtToken.length() + " Hererererrererer");
             if (txtToken.length() > 0){
-                Intent intent = new Intent(this, UserDetails.class);
-                //intent.putExtra("student_Id",0);
-                //startActivity(intent);
-                //Toast.makeText(this, "No student!",Toast.LENGTH_SHORT).show();
                 new VerifyAPIAuthenticity().execute(txtToken);
             }else{
                 Toast.makeText(this, " API Token can not be blank", Toast.LENGTH_SHORT).show();
@@ -315,6 +311,10 @@ public class MainActivity extends AppCompatActivity implements android.view.View
                 user.api_key = "";
                 repo.insert(user);
                 Toast.makeText(MainActivity.this, "Successfully saved user", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), UserDetails.class);
+                //intent.putExtra("student_Id",0);
+                startActivity(intent);
+                //Toast.makeText(this, "No student!",Toast.LENGTH_SHORT).show();
 
             } catch (JSONException e) {
                 Log.e("FAILED TO SAVE USER", e.toString());
