@@ -28,6 +28,8 @@ import android.telephony.SmsManager;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -36,12 +38,14 @@ public class MainActivity extends AppCompatActivity implements android.view.View
     public static final int READ_TIMEOUT = 15000;
 
     Button verify_code;
+    EditText txtAPIToken;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         verify_code = (Button) findViewById(R.id.verifyCode);
         verify_code.setOnClickListener(this);
+        txtAPIToken = (EditText) findViewById(R.id.apiToken);
         //Intent serviceIntent = new Intent(this, SMSServiceStartOnBoot.class);
         //serviceIntent.startService(serviceIntent);
         //new AsyncFetch().execute();
@@ -63,12 +67,18 @@ public class MainActivity extends AppCompatActivity implements android.view.View
 
     public void onClick(View view) {
         if (view== findViewById(R.id.verifyCode)){
+            String txtToken = txtAPIToken.getText().toString();
+            Log.e("API SIZE", txtToken.length() + " Hererererrererer");
+            if (txtToken.length() > 0){
+                Intent intent = new Intent(this, UserDetails.class);
+                //intent.putExtra("student_Id",0);
+                //startActivity(intent);
+                //Toast.makeText(this, "No student!",Toast.LENGTH_SHORT).show();
+                new VerifyAPIAuthenticity().execute(txtToken);
+            }else{
+                Toast.makeText(this, " API Token can not be blank", Toast.LENGTH_SHORT).show();
+            }
 
-            Intent intent = new Intent(this, UserDetails.class);
-            //intent.putExtra("student_Id",0);
-            //startActivity(intent);
-            //Toast.makeText(this, "No student!",Toast.LENGTH_SHORT).show();
-            new VerifyAPIAunthenticity().execute();
         }
     }
 
@@ -194,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements android.view.View
 
     }
 
-    private class VerifyAPIAunthenticity extends AsyncTask<String, String, String> {
+    private class VerifyAPIAuthenticity extends AsyncTask<String, String, String> {
         HttpURLConnection conn;
         URL url = null;
         private ProgressDialog  dialog = new ProgressDialog(MainActivity.this);
@@ -212,10 +222,9 @@ public class MainActivity extends AppCompatActivity implements android.view.View
         @Override
         protected String doInBackground(String... params) {
             try {
+                String apiToken = apiToken = params[0];
 
-                // Enter URL address where your json file resides
-                // Even you can make call to php file which returns json data
-                url = new URL("http://10.0.2.2:3000/verify_api_aunthenticity/d5a8148703dd018b867c41ec70b7e2aecb99bb50");
+                url = new URL("http://10.0.2.2:3000/verify_api_aunthenticity/" + apiToken);
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
@@ -295,9 +304,20 @@ public class MainActivity extends AppCompatActivity implements android.view.View
                 String api_key_status = json.optString("api_key_status");
                 String api_expiry_date = json.optString("api_expiry_date");
 
+                UserRepo repo = new UserRepo(getApplicationContext());
+
+                User user = new User();
+                user.username = username;
+                user.first_name = first_name;
+                user.last_name = last_name;
+                user.phone_number = phone_number;
+                user.email = email;
+                user.api_key = "";
+                repo.insert(user);
+                Toast.makeText(MainActivity.this, "Successfully saved user", Toast.LENGTH_SHORT).show();
 
             } catch (JSONException e) {
-                Log.e("SERIOUS ERROR", e.toString());
+                Log.e("FAILED TO SAVE USER", e.toString());
                 e.printStackTrace();
             }
 
