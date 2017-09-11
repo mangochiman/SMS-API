@@ -11,15 +11,15 @@
     android:columnCount="2" >
 
     <TextView
-        android:id="@+id/nameText"
+        android:id="@+id/usernameText"
         android:layout_gravity="left"
         android:text="Username: "
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/nameValue"
+        android:id="@+id/username"
         android:layout_gravity="left"
-        android:text=" Mangochiman"
+        android:text=""
         android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -32,7 +32,7 @@
     <TextView
         android:id="@+id/firstName"
         android:layout_gravity="left"
-        android:text=" Ernest"
+        android:text=""
         android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -45,7 +45,7 @@
     <TextView
         android:id="@+id/lastName"
         android:layout_gravity="left"
-        android:text=" Matola"
+        android:text=""
         android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -58,7 +58,7 @@
     <TextView
         android:id="@+id/phoneNumber"
         android:layout_gravity="left"
-        android:text=" 0999607901"
+        android:text=""
         android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -68,12 +68,12 @@
         android:text="Email: "
         android:textAppearance="?android:attr/textAppearanceLarge"/>
 
-        <TextView
-            android:id="@+id/email"
-            android:layout_gravity="left"
-            android:text=" mangochiman@gmail.com"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textStyle="bold" />
+    <TextView
+        android:id="@+id/email"
+        android:layout_gravity="left"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/dateCreatedText"
@@ -84,7 +84,7 @@
     <TextView
         android:id="@+id/dateCreated"
         android:layout_gravity="left"
-        android:text=" 05/September/2017"
+        android:text=""
         android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -97,7 +97,7 @@
     <TextView
         android:id="@+id/apiStatus"
         android:layout_gravity="left"
-        android:text=" Active"
+        android:text=""
         android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -110,7 +110,7 @@
     <TextView
         android:id="@+id/expiryDate"
         android:layout_gravity="left"
-        android:text=" 01/Dec/2017"
+        android:text=""
         android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 

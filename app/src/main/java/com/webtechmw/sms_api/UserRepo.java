@@ -3,6 +3,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -28,6 +30,9 @@ public class UserRepo {
         values.put(User.KEY_phone_number, user.phone_number);
         values.put(User.KEY_email, user.email);
         values.put(User.KEY_api_key, user.api_key);
+        values.put(User.KEY_api_key_status, user.api_key_status);
+        values.put(User.KEY_api_key_expiry_date, user.api_key_expiry_date);
+        values.put(User.KEY_created_at, user.created_at);
 
         // Inserting Row
         long user_Id = db.insert(User.TABLE, null, values);
@@ -54,7 +59,9 @@ public class UserRepo {
         values.put(User.KEY_phone_number, user.phone_number);
         values.put(User.KEY_email, user.email);
         values.put(User.KEY_api_key, user.api_key);
-
+        values.put(User.KEY_api_key_status, user.api_key_status);
+        values.put(User.KEY_api_key_expiry_date, user.api_key_expiry_date);
+        values.put(User.KEY_created_at, user.created_at);
         // It's a good practice to use parameter ?, instead of concatenate string
         db.update(User.TABLE, values, User.KEY_ID + "= ?", new String[] { String.valueOf(user.user_ID) });
         db.close(); // Closing database connection
@@ -70,6 +77,9 @@ public class UserRepo {
                 User.KEY_last_name + "," +
                 User.KEY_phone_number + "," +
                 User.KEY_email + "," +
+                User.KEY_api_key_status + "," +
+                User.KEY_api_key_expiry_date + "," +
+                User.KEY_created_at + "," +
                 User.KEY_api_key +
                 " FROM " + User.TABLE;
 
@@ -109,6 +119,9 @@ public class UserRepo {
                 User.KEY_last_name + "," +
                 User.KEY_phone_number + "," +
                 User.KEY_email + "," +
+                User.KEY_api_key_status + "," +
+                User.KEY_api_key_expiry_date + "," +
+                User.KEY_created_at + "," +
                 User.KEY_api_key +
                 " FROM " + User.TABLE
                 + " WHERE " +
@@ -128,7 +141,59 @@ public class UserRepo {
                 user.phone_number  =cursor.getString(cursor.getColumnIndex(User.KEY_phone_number));
                 user.email  =cursor.getString(cursor.getColumnIndex(User.KEY_email));
                 user.api_key  =cursor.getString(cursor.getColumnIndex(User.KEY_api_key));
+                user.api_key_status  =cursor.getString(cursor.getColumnIndex(User.KEY_api_key_status));
+                user.api_key_expiry_date  =cursor.getString(cursor.getColumnIndex(User.KEY_api_key_expiry_date));
+                user.created_at  = cursor.getString(cursor.getColumnIndex(User.KEY_created_at));
 
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return user;
+    }
+
+    public int getUserCount() {
+        String countQuery = "SELECT  * FROM User";
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int rowCount = cursor.getCount();
+        db.close();
+        cursor.close();
+        return rowCount;
+    }
+
+    public User getUser(){
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String selectQuery =  "SELECT  " +
+                User.KEY_ID + "," +
+                User.KEY_username + "," +
+                User.KEY_first_name + "," +
+                User.KEY_last_name + "," +
+                User.KEY_phone_number + "," +
+                User.KEY_email + "," +
+                User.KEY_api_key_status + "," +
+                User.KEY_api_key_expiry_date + "," +
+                User.KEY_created_at + "," +
+                User.KEY_api_key +
+                " FROM  " + User.TABLE;
+        Log.e("UQUERY", selectQuery);
+        User user = new User();
+
+        Cursor cursor = db.rawQuery(selectQuery, null );
+
+        if (cursor.moveToFirst()) {
+            do {
+                user.user_ID = cursor.getInt(cursor.getColumnIndex(User.KEY_ID));
+                user.username = cursor.getString(cursor.getColumnIndex(User.KEY_username));
+                user.first_name  = cursor.getString(cursor.getColumnIndex(User.KEY_first_name));
+                user.last_name  = cursor.getString(cursor.getColumnIndex(User.KEY_last_name));
+                user.phone_number  = cursor.getString(cursor.getColumnIndex(User.KEY_phone_number));
+                user.email  = cursor.getString(cursor.getColumnIndex(User.KEY_email));
+                user.api_key  = cursor.getString(cursor.getColumnIndex(User.KEY_api_key));
+                user.api_key_status  = cursor.getString(cursor.getColumnIndex(User.KEY_api_key_status));
+                user.api_key_expiry_date  = cursor.getString(cursor.getColumnIndex(User.KEY_api_key_expiry_date));
+                user.created_at  = cursor.getString(cursor.getColumnIndex(User.KEY_created_at));
             } while (cursor.moveToNext());
         }
 

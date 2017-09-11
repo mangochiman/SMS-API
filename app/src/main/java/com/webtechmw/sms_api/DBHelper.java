@@ -12,7 +12,7 @@ public class DBHelper  extends SQLiteOpenHelper {
     //version number to upgrade database version
     //each time if you Add, Edit table, you need to change the
     //version number.
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 6;
 
     // Database Name
     private static final String DATABASE_NAME = "sms_api.db";
@@ -32,7 +32,10 @@ public class DBHelper  extends SQLiteOpenHelper {
                 + User.KEY_last_name + " TEXT, "
                 + User.KEY_phone_number + " TEXT, "
                 + User.KEY_email + " TEXT, "
-                + User.KEY_api_key + " TEXT )";
+                + User.KEY_api_key_status + " TEXT, "
+                + User.KEY_api_key_expiry_date + " TEXT, "
+                + User.KEY_api_key + " TEXT, "
+                + User.KEY_created_at + " TEXT )";
 
         db.execSQL(CREATE_TABLE_USER);
 

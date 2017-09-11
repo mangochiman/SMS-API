@@ -42,7 +42,45 @@ public class MainActivity extends AppCompatActivity implements android.view.View
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Toast.makeText(MainActivity.this, "Successfully saved user", Toast.LENGTH_SHORT).show();
+        //Intent intent = new Intent(getApplicationContext(), UserDetails.class);
+        //intent.putExtra("student_Id",0);
+        //startActivity(intent);
+        //Toast.makeText(this, "No student!",Toast.LENGTH_SHORT).show();
+
         setContentView(R.layout.activity_main);
+
+        UserRepo repo = new UserRepo(this);
+        int userAccount = repo.getUserCount();
+
+        if (userAccount > 0){
+            Intent intent = new Intent(getApplicationContext(), UserDetails.class);
+            User user = repo.getUser();
+            String username = user.username;
+            String first_name = user.first_name;
+            String last_name = user.last_name;
+            String phone_number = user.phone_number;
+            String email = user.email;
+            String api_key_status = user.api_key_status;
+            String api_key_expiry_date = user.api_key_expiry_date;
+            String created_at = user.created_at;
+            String api_key = user.api_key;
+
+            intent.putExtra("username", username);
+            intent.putExtra("email", email);
+            intent.putExtra("first_name", first_name);
+            intent.putExtra("last_name", last_name);
+            intent.putExtra("phone_number", phone_number);
+            intent.putExtra("api_key_status", api_key_status);
+            intent.putExtra("api_key_expiry_date", api_key_expiry_date);
+            intent.putExtra("created_at", created_at);
+            intent.putExtra("api_key", api_key);
+
+            startActivity(intent);
+            finish();
+        }
+
         verify_code = (Button) findViewById(R.id.verifyCode);
         verify_code.setOnClickListener(this);
         txtAPIToken = (EditText) findViewById(R.id.apiToken);
@@ -67,8 +105,14 @@ public class MainActivity extends AppCompatActivity implements android.view.View
 
     public void onClick(View view) {
         if (view== findViewById(R.id.verifyCode)){
+            UserRepo repo = new UserRepo(this);
+            //repo.getUserList();
+            //repo.getUserById('1');
+            //User user = new User();
+            //user = repo.getUser();
+
+            Log.e("EMAIL", repo.getUser().first_name + " ");
             String txtToken = txtAPIToken.getText().toString();
-            Log.e("API SIZE", txtToken.length() + " Hererererrererer");
             if (txtToken.length() > 0){
                 new VerifyAPIAuthenticity().execute(txtToken);
             }else{
@@ -85,7 +129,6 @@ public class MainActivity extends AppCompatActivity implements android.view.View
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Log.e("START", "This is the start");
             //this method will be running on UI thread
 
         }
@@ -101,7 +144,6 @@ public class MainActivity extends AppCompatActivity implements android.view.View
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-                Log.e("ERROR", e.toString());
                 return e.toString();
             }
             try {
@@ -117,7 +159,6 @@ public class MainActivity extends AppCompatActivity implements android.view.View
 
             } catch (IOException e1) {
                 // TODO Auto-generated catch block
-                Log.e("ERROR", "Failed to connect");
                 e1.printStackTrace();
                 return e1.toString();
             }
@@ -160,7 +201,6 @@ public class MainActivity extends AppCompatActivity implements android.view.View
         @Override
         protected void onPostExecute(String result) {
             //this method will be running on UI thread
-            Log.e("AUTOMATED RUN", "RUN IN PROGRESS");
             try {
                 //JSONObject json= (JSONObject) new JSONTokener(result);
                 JSONObject json = new JSONObject(result);
@@ -172,9 +212,6 @@ public class MainActivity extends AppCompatActivity implements android.view.View
                         String phoneNumber = row.optString("phone_number");
                         String message = row.optString("message");
 
-
-
-                        Log.i("Send SMS", "");
                         SmsManager sms = SmsManager.getDefault();
 
                         //PendingIntent sentPI;
@@ -192,7 +229,6 @@ public class MainActivity extends AppCompatActivity implements android.view.View
 
 
             } catch (JSONException e) {
-                Log.e("ERROR", e.toString());
                 e.printStackTrace();
             }
 
@@ -210,7 +246,6 @@ public class MainActivity extends AppCompatActivity implements android.view.View
             this.dialog.setMessage("Please wait. Verification in progress");
             this.dialog.show();
             //this.dialog.setMessage("Please wait");
-            Log.e("START", "This is the start");
             //this method will be running on UI thread
 
         }
@@ -225,7 +260,6 @@ public class MainActivity extends AppCompatActivity implements android.view.View
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-                Log.e("ERROR", e.toString());
                 return e.toString();
             }
             try {
@@ -241,7 +275,6 @@ public class MainActivity extends AppCompatActivity implements android.view.View
 
             } catch (IOException e1) {
                 // TODO Auto-generated catch block
-                Log.e("ERROR", "Failed to connect");
                 e1.printStackTrace();
                 return e1.toString();
             }
@@ -284,7 +317,6 @@ public class MainActivity extends AppCompatActivity implements android.view.View
         @Override
         protected void onPostExecute(String result) {
             //this method will be running on UI thread
-            Log.e("VERIFYING API TOKEN", "RUN IN PROGRESS");
             if (dialog.isShowing()){
                 dialog.dismiss();
             }
@@ -297,6 +329,7 @@ public class MainActivity extends AppCompatActivity implements android.view.View
                 String phone_number = json.optString("phone_number");
                 String email = json.optString("email");
                 String created_at = json.optString("created_at");
+                String api_key = json.optString("api_key");
                 String api_key_status = json.optString("api_key_status");
                 String api_expiry_date = json.optString("api_expiry_date");
 
@@ -308,7 +341,7 @@ public class MainActivity extends AppCompatActivity implements android.view.View
                 user.last_name = last_name;
                 user.phone_number = phone_number;
                 user.email = email;
-                user.api_key = "";
+                user.api_key = api_key;
                 repo.insert(user);
                 Toast.makeText(MainActivity.this, "Successfully saved user", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), UserDetails.class);
@@ -317,7 +350,6 @@ public class MainActivity extends AppCompatActivity implements android.view.View
                 //Toast.makeText(this, "No student!",Toast.LENGTH_SHORT).show();
 
             } catch (JSONException e) {
-                Log.e("FAILED TO SAVE USER", e.toString());
                 e.printStackTrace();
             }
 

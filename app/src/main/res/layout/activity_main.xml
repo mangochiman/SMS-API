@@ -17,9 +17,10 @@
         android:id="@+id/apiToken"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textIsSelectable="true"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:text="d5a8148703dd018b867c41ec70b7e2aecb99bb50"
+        android:textIsSelectable="true" />
 
     <Button
         android:id="@+id/verifyCode"
