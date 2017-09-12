@@ -46,8 +46,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UserDetails"
-            android:label="Account Details"></activity>
+        <activity
+            android:name=".UserDetails"
+            android:label="Account Details" />
+        <activity
+            android:name=".activate_token"
+            android:label="API token expired">
+        </activity>
     </application>
 
 </manifest>

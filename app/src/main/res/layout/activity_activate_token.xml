@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="3dp"
+    android:orientation="vertical">
+
+    <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:columnCount="1" >
+
+        <TextView
+            android:id="@+id/notice1"
+            android:paddingTop="20dp"
+            android:text="Your API token has expired. Messages will not be delivered to the recepients."
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/notice2"
+            android:paddingTop="22dp"
+            android:text="If you want to continue using our API, please send an email to mangochiman@gmail.com for reactivation of your account."
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/notice3"
+            android:paddingTop="22dp"
+            android:text="OR call +265 999 607 901"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <Button
+            android:id="@+id/userAccountDetailsButton"
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:layout_columnSpan="1"
+            android:layout_marginTop="15dp"
+            android:text="My User Account" />
+    </GridLayout>
+
+</LinearLayout>

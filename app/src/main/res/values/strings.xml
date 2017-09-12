@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">SMS-API</string>
+    <string name="notice_one">
+
+            This is an <i>underline</i> text demo for TextView.
+
+    </string>
+
 </resources>

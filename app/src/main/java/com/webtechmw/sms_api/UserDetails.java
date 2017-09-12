@@ -4,14 +4,16 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class UserDetails extends AppCompatActivity {
+public class UserDetails extends AppCompatActivity implements android.view.View.OnClickListener {
 
     Button btnActivateButton;
-    Button btnClose;
+
     TextView textViewUsername;
     TextView textViewEmail;
     TextView textViewFirstName;
@@ -53,6 +55,28 @@ public class UserDetails extends AppCompatActivity {
         textViewDateCreated.setText(created_at);
         textViewAPIStatus.setText(api_key_status);
         textViewExpiryDate.setText(api_key_expiry_date);
+        btnActivateButton = (Button) findViewById(R.id.activateButton);
 
+        if (api_key_status != null){
+            if (api_key_status.trim().equalsIgnoreCase("ACTIVE")){
+                btnActivateButton.setEnabled(false);
+                // send SMS here
+            } else {
+                btnActivateButton.setOnClickListener(this);
+            }
+        } else {
+            //something was wrong here
+            btnActivateButton.setOnClickListener(this);
+        }
+
+
+    }
+
+    public void onClick(View view) {
+        if (view== findViewById(R.id.activateButton)){
+            Intent intent = new Intent(getApplicationContext(), activate_token.class);
+            startActivity(intent);
+
+        }
     }
 }
