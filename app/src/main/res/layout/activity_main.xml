@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="d5a8148703dd018b867c41ec70b7e2aecb99bb50"
+        android:text=""
         android:textIsSelectable="true" />
 
     <Button
