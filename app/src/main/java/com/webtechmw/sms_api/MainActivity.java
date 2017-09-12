@@ -342,12 +342,24 @@ public class MainActivity extends AppCompatActivity implements android.view.View
                 user.phone_number = phone_number;
                 user.email = email;
                 user.api_key = api_key;
+                user.api_key_status = api_key_status;
+                user.api_key_expiry_date = api_expiry_date;
+                user.created_at = created_at;
+
                 repo.insert(user);
                 Toast.makeText(MainActivity.this, "Successfully saved user", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), UserDetails.class);
-                //intent.putExtra("student_Id",0);
+                intent.putExtra("username", username);
+                intent.putExtra("email", email);
+                intent.putExtra("first_name", first_name);
+                intent.putExtra("last_name", last_name);
+                intent.putExtra("phone_number", phone_number);
+                intent.putExtra("api_key_status", api_key_status);
+                intent.putExtra("api_key_expiry_date", api_expiry_date);
+                intent.putExtra("created_at", created_at);
+                intent.putExtra("api_key", api_key);
                 startActivity(intent);
-                //Toast.makeText(this, "No student!",Toast.LENGTH_SHORT).show();
+
 
             } catch (JSONException e) {
                 e.printStackTrace();

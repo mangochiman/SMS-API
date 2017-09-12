@@ -52,6 +52,7 @@ public class UserDetails extends AppCompatActivity implements android.view.View.
         textViewEmail.setText(email);
         textViewFirstName.setText(first_name);
         textViewLastName.setText(last_name);
+        textViewPhoneNumber.setText(phone_number);
         textViewDateCreated.setText(created_at);
         textViewAPIStatus.setText(api_key_status);
         textViewExpiryDate.setText(api_key_expiry_date);
