@@ -63,7 +63,7 @@ public class UserRepo {
         values.put(User.KEY_api_key_expiry_date, user.api_key_expiry_date);
         values.put(User.KEY_created_at, user.created_at);
         // It's a good practice to use parameter ?, instead of concatenate string
-        db.update(User.TABLE, values, User.KEY_ID + "= ?", new String[] { String.valueOf(user.user_ID) });
+        db.update(User.TABLE, values, User.KEY_username + "= ?", new String[] { String.valueOf(user.username) });
         db.close(); // Closing database connection
     }
 

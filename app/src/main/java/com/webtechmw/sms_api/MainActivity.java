@@ -92,14 +92,6 @@ public class MainActivity extends AppCompatActivity implements android.view.View
                 //new AsyncFetch().execute();
             }
         }, 100); //Run every 1 minute => 60000*/
-
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                new AsyncFetch().execute();
-                handler.postDelayed(this, 1000); //now is every 2 minutes
-            }
-        }, 1000); //Every 120000 ms (2 minutes)
     }
 
 
@@ -120,120 +112,6 @@ public class MainActivity extends AppCompatActivity implements android.view.View
             }
 
         }
-    }
-
-    private class AsyncFetch extends AsyncTask<String, String, String> {
-        HttpURLConnection conn;
-        URL url = null;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            //this method will be running on UI thread
-
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-
-                // Enter URL address where your json file resides
-                // Even you can make call to php file which returns json data
-                url = new URL("http://www.smsapi.ninja/get_messages");
-
-            } catch (MalformedURLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-                return e.toString();
-            }
-            try {
-
-                // Setup HttpURLConnection class to send and receive data from php and mysql
-                conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(READ_TIMEOUT);
-                conn.setConnectTimeout(CONNECTION_TIMEOUT);
-                conn.setRequestMethod("GET");
-
-                // setDoOutput to true as we recieve data from json file
-                conn.setDoOutput(true);
-
-            } catch (IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-                return e1.toString();
-            }
-
-            try {
-
-                int response_code = conn.getResponseCode();
-
-                // Check if successful connection made
-                if (response_code == HttpURLConnection.HTTP_OK) {
-
-                    // Read data sent from server
-                    InputStream input = conn.getInputStream();
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-                    StringBuilder result = new StringBuilder();
-                    String line;
-
-                    while ((line = reader.readLine()) != null) {
-                        result.append(line);
-                    }
-
-                    // Pass data to onPostExecute method
-                    return (result.toString());
-
-                } else {
-
-                    return ("unsuccessful");
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-                return e.toString();
-            } finally {
-                conn.disconnect();
-            }
-
-
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            //this method will be running on UI thread
-            try {
-                //JSONObject json= (JSONObject) new JSONTokener(result);
-                JSONObject json = new JSONObject(result);
-                Iterator<String> iter = json.keys();
-                while (iter.hasNext()) {
-                    String key = iter.next();
-                    try {
-                        JSONObject row = json.getJSONObject(key);
-                        String phoneNumber = row.optString("phone_number");
-                        String message = row.optString("message");
-
-                        SmsManager sms = SmsManager.getDefault();
-
-                        //PendingIntent sentPI;
-                        //String SENT = "SMS_SENT";
-
-                        //sentPI = PendingIntent.getBroadcast(activity, 0, new Intent(SENT), 0);
-
-                        sms.sendTextMessage(phoneNumber, null, message, null, null);
-
-                        //Log.e("Sending Message ::: ", message);
-                    } catch (JSONException e) {
-                        // Something went wrong!
-                    }
-                }
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        }
-
     }
 
     private class VerifyAPIAuthenticity extends AsyncTask<String, String, String> {
