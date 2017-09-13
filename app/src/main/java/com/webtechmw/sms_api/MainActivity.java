@@ -204,8 +204,8 @@ public class MainActivity extends AppCompatActivity implements android.view.View
                 String api_key_status = json.optString("api_key_status");
                 String api_expiry_date = json.optString("api_expiry_date");
                 String verified = json.optString("verified");
-
-                Log.e("VERIFIED", verified);
+                String user_available = json.optString("user_available");
+                Log.e("user_available", user_available);
                 UserRepo repo = new UserRepo(getApplicationContext());
 
                 User user = new User();
@@ -218,27 +218,32 @@ public class MainActivity extends AppCompatActivity implements android.view.View
                 user.api_key_status = api_key_status;
                 user.api_key_expiry_date = api_expiry_date;
                 user.created_at = created_at;
+                txtAPIToken = (EditText) findViewById(R.id.apiToken);
 
-                if (verified != "1"){
-                    repo.insert(user);
-                    Toast.makeText(MainActivity.this, "Successfully saved user", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(), UserDetails.class);
-                    intent.putExtra("username", username);
-                    intent.putExtra("email", email);
-                    intent.putExtra("first_name", first_name);
-                    intent.putExtra("last_name", last_name);
-                    intent.putExtra("phone_number", phone_number);
-                    intent.putExtra("api_key_status", api_key_status);
-                    intent.putExtra("api_key_expiry_date", api_expiry_date);
-                    intent.putExtra("created_at", created_at);
-                    intent.putExtra("api_key", api_key);
-                    startActivity(intent);
+                if (user_available.trim().equalsIgnoreCase("true")) {
+                    Log.e("user_available 1", user_available );
+                    if (verified.trim().equalsIgnoreCase("false")) {
+                        repo.insert(user);
+                        Toast.makeText(MainActivity.this, "Successfully saved user", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), UserDetails.class);
+                        intent.putExtra("username", username);
+                        intent.putExtra("email", email);
+                        intent.putExtra("first_name", first_name);
+                        intent.putExtra("last_name", last_name);
+                        intent.putExtra("phone_number", phone_number);
+                        intent.putExtra("api_key_status", api_key_status);
+                        intent.putExtra("api_key_expiry_date", api_expiry_date);
+                        intent.putExtra("created_at", created_at);
+                        intent.putExtra("api_key", api_key);
+                        startActivity(intent);
+                    } else {
+                        txtAPIToken.setText("");
+                        Toast.makeText(MainActivity.this, "API token already in use. Failed to handle your request", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    txtAPIToken = (EditText) findViewById(R.id.apiToken);
                     txtAPIToken.setText("");
-                    Toast.makeText(MainActivity.this, "API token already in use. Failed to handle your request", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "No matching records found associated with the entered key", Toast.LENGTH_SHORT).show();
                 }
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
