@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements android.view.View
             try {
                 String apiToken = apiToken = params[0];
 
-                url = new URL("http://10.0.2.2:3000/verify_api_aunthenticity/" + apiToken);
+                url = new URL("http://www.smsapi.ninja/verify_api_aunthenticity/" + apiToken);
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block

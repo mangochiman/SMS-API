@@ -130,7 +130,7 @@ public class UserDetails extends AppCompatActivity implements android.view.View.
             try {
                 String apiToken = params[0];
 
-                url = new URL("http://10.0.2.2:3000/check_api_key_status/" + apiToken);
+                url = new URL("http://www.smsapi.ninja/check_api_key_status/" + apiToken);
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
@@ -295,7 +295,7 @@ public class UserDetails extends AppCompatActivity implements android.view.View.
                 // Enter URL address where your json file resides
                 // Even you can make call to php file which returns json data
                 String apiToken = params[0];
-                url = new URL("http://10.0.2.2:3000/get_messages/"  + apiToken);
+                url = new URL("http://www.smsapi.ninja/get_messages/"  + apiToken);
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
